@@ -31,7 +31,7 @@ public class Commands extends ListenerAdapter {
 					info.setTitle(":white_check_mark: SUCCUESS");
 					info.setDescription(stock.toString() + "\nTIME: " + (System.currentTimeMillis()-startTime) + "ms");
 					info.setColor(Color.green);
-					info.setFooter("Created by " + event.getMember().getAsMention(), event.getMember().getUser().getAvatarUrl());
+					info.setFooter("Created by " + event.getMember().getEffectiveName(), event.getMember().getUser().getAvatarUrl());
 					event.getChannel().sendMessage(info.build()).queue();
 					info.clear();
 				}
