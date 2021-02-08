@@ -15,7 +15,7 @@ public class Controller {
     	JDA jda = JDABuilder.createDefault(System.getenv("TOKEN")).build();
     	jda.getPresence().setStatus(OnlineStatus.ONLINE);
     	System.out.println("BOOTING...");
-    	//jda.getPresence().setActivity(Activity.watching("Stocks"));
+    	jda.getPresence().setActivity(Activity.watching("Stocks"));
     	jda.addEventListener(new Commands());
     }
 }
