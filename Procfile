@@ -1,1 +1,1 @@
-Worker: java $JAVA_OPTS -cp target/classes:target/dependency/* bot.Controller
+Worker: java $JAVA_OPTS -cp target/classes:target/dependency/* bot.Controller.class
