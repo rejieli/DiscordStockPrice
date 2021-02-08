@@ -20,7 +20,7 @@ public class Commands extends ListenerAdapter {
 				Stock stock = PriceFetcher.getPrice(ticker);
 				if(stock.getChange().equals("error")) {
 					EmbedBuilder info = new EmbedBuilder();
-					info.setTitle("â�Œ ERROR");
+					info.setTitle(":x: ERROR");
 					info.setDescription("We're having trouble finding: " + ticker);
 					info.setColor(Color.red);
 					info.setFooter("Created by zuck", event.getMember().getUser().getAvatarUrl());
