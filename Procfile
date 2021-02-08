@@ -1,1 +1,1 @@
-Worker: java src/main/java/bot/Controller.java
+Worker: -cp src/main/java/bot/Controller.java
