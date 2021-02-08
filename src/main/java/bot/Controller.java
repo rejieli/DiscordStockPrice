@@ -12,7 +12,7 @@ public class Controller {
     public static String prefix = "$";
 
     public static void main(String[] args) throws LoginException {
-    	JDA jda = JDABuilder.createDefault("ODA4MDYxOTc0MTI5ODAzMzI0.YCBEWw.TCtJv97INaaPcEffKp7C_KuueTw").build();
+    	JDA jda = JDABuilder.createDefault(System.getenv("TOKEN")).build();
     	jda.getPresence().setStatus(OnlineStatus.ONLINE);
     	System.out.println("BOOTING...");
     	//jda.getPresence().setActivity(Activity.watching("Stocks"));
