@@ -102,6 +102,7 @@ public class Commands extends ListenerAdapter {
 							"USER: " + audit.get(i).getUser().getName());
 					sb.append("\nTYPE: " + audit.get(i).getType());
 					sb.append("\nTARGET TYPE: " + audit.get(i).getTargetType());
+					sb.append("\nTime: " + audit.get(i).getTimeCreated().getDayOfWeek() + " " + audit.get(i).getTimeCreated().getHour() + ":" + audit.get(i).getTimeCreated().getMinute());
 					if (audit.get(i).getOptions().values().size() == 2) {
 						sb.append("\nDETAILS: " + audit.get(i).getOptions().values().toArray()[1] + " -- "
 								+ event.getGuild()
