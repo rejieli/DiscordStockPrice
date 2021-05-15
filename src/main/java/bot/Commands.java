@@ -26,6 +26,12 @@ public class Commands extends ListenerAdapter {
 			checkTimer();
 
 			String[] args = event.getMessage().getContentRaw().split("\\s+");
+			//Lol
+			if(args[0].equals("!") && args[1].equals("#")){
+				event.getChannel().sendMessage("Welcome ➜ " + args[2] + " !").queue();
+			}
+			
+			
 			// Stocks
 			if (args[0].substring(0, 1).equals(Controller.prefix) && args.length == 1) {
 				String ticker = args[0].substring(1, args[0].length());
