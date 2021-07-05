@@ -11,6 +11,10 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.audit.AuditLogEntry;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -26,12 +30,6 @@ public class Commands extends ListenerAdapter {
 			checkTimer();
 
 			String[] args = event.getMessage().getContentRaw().split("\\s+");
-			//Lol
-			if(args[0].equals("!") && args[1].equals("#")){
-				event.getChannel().sendMessage("Welcome ➜ " + args[2] + " !").queue();
-			}
-			
-			
 			// Stocks
 			if (args[0].substring(0, 1).equals(Controller.prefix) && args.length == 1) {
 				String ticker = args[0].substring(1, args[0].length());
@@ -104,11 +102,12 @@ public class Commands extends ListenerAdapter {
 				for (int i = 0; i < audit.size() && i < 5; i++) {
 					// Formatting
 
-					sb.append(
-							"USER: " + audit.get(i).getUser().getName());
+					sb.append("USER: " + audit.get(i).getUser().getName());
 					sb.append("\nTYPE: " + audit.get(i).getType());
 					sb.append("\nTARGET TYPE: " + audit.get(i).getTargetType());
-					sb.append("\nTime: " + audit.get(i).getTimeCreated().getDayOfWeek() + " " + audit.get(i).getTimeCreated().getHour() + ":" + audit.get(i).getTimeCreated().getMinute());
+					sb.append("\nTime: " + audit.get(i).getTimeCreated().getDayOfWeek() + " "
+							+ audit.get(i).getTimeCreated().getHour() + ":"
+							+ audit.get(i).getTimeCreated().getMinute());
 					if (audit.get(i).getOptions().values().size() == 2) {
 						sb.append("\nDETAILS: " + audit.get(i).getOptions().values().toArray()[1] + " -- "
 								+ event.getGuild()
@@ -117,7 +116,7 @@ public class Commands extends ListenerAdapter {
 										.getName());
 					}
 					sb.append("\n---------------------------------------------------\n");
-					
+
 				}
 				info.setDescription(sb.toString());
 				info.setFooter("REQUEST BY: " + event.getMember().getEffectiveName(),
@@ -127,6 +126,57 @@ public class Commands extends ListenerAdapter {
 			}
 		} catch (Exception e) {
 
+		}
+	}
+
+	@Override
+	public void onGuildVoiceJoin(GuildVoiceJoinEvent event) {
+		try {
+			super.onGuildVoiceJoin(event);
+			EmbedBuilder info = new EmbedBuilder();
+			info.setTitle("JOIN VOICE: " + event.getMember().getEffectiveName());
+			info.setDescription("JOINED: " + event.getChannelJoined().getName());
+			info.setColor(Color.green);
+			info.setFooter("✔  Verified By zuck",
+					event.getGuild().getMemberById(System.getenv("MEMBERID")).getUser().getAvatarUrl());
+			event.getGuild().getTextChannelById(System.getenv("CHANNELID")).sendMessage(info.build()).queue();
+			info.clear();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void onGuildVoiceMove(GuildVoiceMoveEvent event) {
+		try {
+			super.onGuildVoiceMove(event);
+			EmbedBuilder info = new EmbedBuilder();
+			info.setTitle("MOVED VOICE: " + event.getMember().getEffectiveName());
+			info.setDescription("JOINED: " + event.getChannelJoined().getName());
+			info.setColor(Color.red);
+			info.setFooter("✔  Verified By zuck",
+					event.getGuild().getMemberById(System.getenv("MEMBERID")).getUser().getAvatarUrl());
+			event.getGuild().getTextChannelById(System.getenv("CHANNELID")).sendMessage(info.build()).queue();
+			info.clear();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void onGuildVoiceLeave(GuildVoiceLeaveEvent event) {
+		try {
+		super.onGuildVoiceLeave(event);
+		EmbedBuilder info = new EmbedBuilder();
+		info.setTitle("LEFT VOICE: " + event.getMember().getEffectiveName());
+		info.setDescription("JOINED: " + event.getChannelLeft().getName());
+		info.setColor(Color.yellow);
+		info.setFooter("✔  Verified By zuck",
+				event.getGuild().getMemberById(System.getenv("MEMBERID")).getUser().getAvatarUrl());
+		event.getGuild().getTextChannelById(System.getenv("CHANNELID")).sendMessage(info.build()).queue();
+		info.clear();
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 
